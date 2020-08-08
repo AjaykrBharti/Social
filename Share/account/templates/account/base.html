@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <a class="navbar-brand" href="#">EEEHUB</a>
+
+              <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item" >
+                    <a class="nav-link" href="{% url 'dashboard' %}">My dashboard</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Images</a>
+                  </li>
+                  <li class="nav-item" >
+                    <a class="nav-link" href="#">People</a>
+                  </li>
+                </ul>
+                  {% if request.user.is_authenticated %}
+                     Hello {{ request.user.username }},
+                     <a href="{% url 'logout' %}">Logout</a>
+                     {% else %}
+                     <a href="{% url 'login' %}">Log-in</a>
+                  {% endif %}
+              </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col">
+
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for msg in messages %}
+                        <li>
+                            <div class="alert alert-{{msg.level_tag}}" role="alert">
+                            {{msg.message|safe}}
+                            <button type="button" class="close"
+                                        data-dismiss="alert" aria-hidden="true">&times;</button>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    {% block content %}
+
+
+                    {% endblock %}
+                </div>
+             </div>
+        </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
